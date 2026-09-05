@@ -4,12 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const insideContent = document.querySelector('.inside-content');
     const dots = document.querySelectorAll('.dot');
 
-    // Apertura al pulsar la portada
     doors.addEventListener('click', () => {
         card.classList.add('open');
     });
 
-    // Actualización de los puntitos al deslizar con el dedo en móvil
     if (insideContent && dots.length > 0) {
         insideContent.addEventListener('scroll', () => {
             const scrollLeft = insideContent.scrollLeft;
