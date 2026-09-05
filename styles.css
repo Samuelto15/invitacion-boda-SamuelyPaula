@@ -43,8 +43,6 @@ body {
 
 .invitation-wrapper {
     width: 100%;
-    /* AQUÍ ESTÁ LA MAGIA: Lo bloqueamos al tamaño en el que tú lo diseñaste.
-       Así nunca se deforma ni hace cosas raras en pantallas gigantes. */
     max-width: 900px;
     margin: 0 auto;
 }
@@ -138,7 +136,7 @@ body {
 
 .invitation-card.open .inside-content { opacity: 1; transform: scale(1); pointer-events: auto; }
 
-/* ================= PANEL IZQUIERDO BAJADO ================= */
+/* ================= PANEL IZQUIERDO ================= */
 .panel-left {
     width: 25%;
     padding: 70px 15px 25px 15px; 
@@ -168,7 +166,6 @@ body {
     margin-top: 15px;
 }
 
-/* CAJA DE CONFIRMACIÓN */
 .confirmacion-box { 
     text-align: center; 
     width: 100%; 
@@ -181,6 +178,7 @@ body {
     line-height: 1.4; 
     font-weight: normal; 
 }
+
 /* ================= ENLACE DE CONFIRMACIÓN ================= */
 .link-container {
     margin-top: 40px; 
@@ -300,10 +298,10 @@ body {
     margin-bottom: 75px;
 }
 
-/* ================= ENLACE MAPS ================= */
+/* Enlace a Google Maps sin formato azul */
 .wedding-details a {
-    color: inherit; /* Hereda el color negro del texto normal */
-    text-decoration: none; /* Le quita el subrayado azul feo */
+    color: inherit;
+    text-decoration: none;
 }
 
 /* ================= PANEL DERECHO (TIMELINE) ================= */
@@ -412,44 +410,204 @@ body {
 }
 
 /* ========================================================================= */
-/* ================= RESPONSIVE: ADAPTACIÓN PARA MÓVILES ================= */
+/* ================= RESPONSIVE: EXPERIENCIA MÓVIL ELEGANTE ================= */
 /* ========================================================================= */
 @media (max-width: 700px) {
-    /* Quitamos el alto y ancho fijos para que fluya hacia abajo */
-    .invitation-card {
-        aspect-ratio: auto;
-        min-height: 100vh;
-        perspective: none;
+    body {
+        padding: 15px 10px;
     }
-    
-    /* Hacemos que los paneles se apilen uno encima de otro en vertical */
+
+    .invitation-wrapper {
+        max-width: 390px;
+        width: 100%;
+    }
+
+    /* 1. Tarjetón vertical en móvil (proporción tipo sobre) */
+    .invitation-card {
+        aspect-ratio: unset;
+        height: 530px;
+        perspective: 2000px;
+    }
+
+    /* 2. Puertas activas en móvil con sombra elegante */
+    .gatefold-doors {
+        display: flex !important;
+        left: 0;
+        width: 100%;
+        height: 530px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+    }
+
+    .door {
+        border-radius: 4px;
+    }
+
+    .cover-script {
+        top: 130px;
+        font-size: 2.1rem;
+    }
+
+    .door-left .cover-script {
+        padding-right: 10px;
+    }
+
+    .door-right .cover-script {
+        padding-left: 10px;
+    }
+
+    .split-bg {
+        background-size: 100% auto;
+        background-position: center 88%;
+    }
+
+    /* 3. Al abrirse la tarjeta en móvil se expande de forma fluida */
+    .invitation-card.open {
+        height: auto;
+    }
+
     .inside-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         flex-direction: column;
+        border-radius: 4px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .invitation-card.open .inside-content {
         position: relative;
-        opacity: 1 !important;
-        transform: scale(1) !important;
-        pointer-events: auto !important;
-        box-shadow: none;
+        height: auto;
+        opacity: 1;
+        pointer-events: auto;
         overflow: visible;
     }
-    
-    /* Escondemos la animación de las puertas en móvil para bajar directamente */
-    .gatefold-doors {
-        display: none !important;
-    }
 
-    /* Los paneles pasan a ocupar el 100% del ancho del móvil */
-    .panel-left, 
-    .panel-center, 
-    .panel-right {
+    /* 4. Contenido interior compacto y ordenado (sin huecos gigantes) */
+    .panel-center {
+        order: 1;
         width: 100%;
         height: auto;
-        border: none; /* Quitamos las líneas discontinuas */
-        padding: 40px 20px;
+        border-left: none;
+        border-right: none;
+        padding: 30px 15px 15px 15px;
     }
 
-    /* Orden lógico de lectura: Dibujo -> Horario -> Confirmación */
-    .panel-center { order: 1; }
-    .panel-right  { order: 2; border-top: 1px dashed #e6e0d8; }
-    .panel-left   { order: 3; border-top: 1px dashed #e6e0d8; }
+    .main-illustration-box {
+        top: 0;
+        margin-bottom: 10px;
+    }
+
+    .center-img {
+        height: 165px;
+        max-height: 190px;
+    }
+
+    .couple-names-formal {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+        letter-spacing: 2px;
+    }
+
+    .ampersand {
+        font-size: 1.15rem;
+    }
+
+    .invite-text {
+        font-size: 0.95rem;
+        margin-bottom: 18px;
+    }
+
+    .wedding-details {
+        font-size: 1.05rem;
+        margin-bottom: 15px;
+    }
+
+    .panel-right {
+        order: 2;
+        width: 100%;
+        height: auto;
+        border-top: 1px dashed #e6e0d8;
+        padding: 25px 15px;
+    }
+
+    .timeline-title {
+        font-size: 1.6rem;
+        margin-top: 0;
+        margin-bottom: 12px;
+    }
+
+    .timeline-container {
+        gap: 16px;
+        padding: 12px 0;
+    }
+
+    .timeline-line {
+        top: 8px;
+        bottom: 8px;
+    }
+
+    .tl-icon {
+        width: 44px;
+    }
+
+    .tl-text {
+        font-size: 0.85rem;
+        padding-left: 8px;
+    }
+
+    .tl-time {
+        font-size: 1.1rem;
+    }
+
+    .panel-left {
+        order: 3;
+        width: 100%;
+        height: auto;
+        border-top: 1px dashed #e6e0d8;
+        padding: 25px 15px 35px 15px;
+    }
+
+    .texto-bonito-box {
+        font-size: 0.85rem;
+        margin-bottom: 18px;
+    }
+
+    .confirmacion-box {
+        margin-top: 15px;
+    }
+
+    .confirmacion-box .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+    }
+
+    .confirmacion-box p {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+
+    .link-container {
+        margin-top: 15px;
+    }
+
+    .link-container a {
+        font-size: 1rem;
+    }
+
+    .iban-box {
+        margin-top: 20px;
+    }
+
+    .iban-box p {
+        font-size: 0.85rem;
+    }
+
+    .iban-box .iban-number {
+        font-size: 0.9rem;
+    }
 }
