@@ -456,7 +456,6 @@ body {
         background-position: center 88%;
     }
 
-    /* Carrusel horizontal deslizante */
     .inside-content {
         height: 540px;
         border-radius: 4px;
@@ -473,7 +472,6 @@ body {
         display: none;
     }
 
-    /* En móvil: 1º Masia y Nombres, 2º Timeline, 3º Confirmación */
     .panel-center { order: 1; }
     .panel-right  { order: 2; }
     .panel-left   { order: 3; }
@@ -553,7 +551,6 @@ body {
         margin-top: 20px;
     }
 
-    /* Puntitos indicadores */
     .mobile-dots {
         display: none;
         justify-content: center;
