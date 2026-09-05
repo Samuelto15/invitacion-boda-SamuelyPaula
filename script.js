@@ -1,26 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     const card = document.getElementById('invitationCard');
     const doors = document.getElementById('gatefoldDoors');
-    const insideContent = document.querySelector('.inside-content');
-    const dots = document.querySelectorAll('.dot');
+    const wrapper = document.querySelector('.invitation-wrapper');
 
+    // Apertura al pulsar las puertas
     doors.addEventListener('click', () => {
         card.classList.add('open');
     });
 
-    if (insideContent && dots.length > 0) {
-        insideContent.addEventListener('scroll', () => {
-            const scrollLeft = insideContent.scrollLeft;
-            const pageWidth = insideContent.clientWidth;
-            const activeIndex = Math.round(scrollLeft / pageWidth);
+    // Escala la tarjeta completa para que encaje al 100% en cualquier pantalla
+    function scaleInvitation() {
+        if (!card || !wrapper) return;
 
-            dots.forEach((dot, index) => {
-                if (index === activeIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-        });
+        const screenW = window.innerWidth - 30; // Margen de seguridad lateral
+        const screenH = window.innerHeight - 30; // Margen de seguridad vertical
+
+        const scaleX = screenW / 900;
+        const scaleY = screenH / 636;
+        
+        // Toma la escala necesaria para que quepa completa sin salirse
+        const scale = Math.min(scaleX, scaleY, 1);
+
+        card.style.transform = `scale(${scale})`;
+        wrapper.style.width = `${900 * scale}px`;
+        wrapper.style.height = `${636 * scale}px`;
     }
+
+    window.addEventListener('resize', scaleInvitation);
+    window.addEventListener('orientationchange', scaleInvitation);
+    scaleInvitation();
 });
