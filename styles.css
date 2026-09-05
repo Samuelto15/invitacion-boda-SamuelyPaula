@@ -38,11 +38,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px;
-    overflow: hidden; /* Evita cualquier barra de scroll molesta */
+    padding: 10px;
+    overflow-x: hidden;
 }
 
-/* CONTENEDOR ESCALABLE */
 .invitation-wrapper {
     position: relative;
     display: flex;
@@ -50,7 +49,6 @@ body {
     align-items: center;
 }
 
-/* TARJETA CON MEDIDAS NATIVAS PERFECTAS */
 .invitation-card {
     position: relative;
     width: 900px;
@@ -411,4 +409,43 @@ body {
 
 .tl-time {
     font-size: 1.25rem; 
+}
+
+/* ================= AVISO PARA GIRAR EL MÓVIL ================= */
+.rotate-hint {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(26, 26, 26, 0.85);
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-family: 'Delicate Elegance', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Solo se muestra en móviles verticales y tras abrir la tarjeta */
+@media (max-width: 768px) and (orientation: portrait) {
+    .invitation-card.open ~ .rotate-hint {
+        opacity: 1;
+    }
+}
+
+@keyframes rotatePhone {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(90deg); }
+}
+
+.rotate-icon {
+    animation: rotatePhone 2.5s infinite ease-in-out;
 }
