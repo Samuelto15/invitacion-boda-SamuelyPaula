@@ -3,22 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const doors = document.getElementById('gatefoldDoors');
     const wrapper = document.querySelector('.invitation-wrapper');
 
-    // Apertura al pulsar las puertas
+    // Apertura suave al tocar la portada
     doors.addEventListener('click', () => {
         card.classList.add('open');
     });
 
-    // Escala la tarjeta completa para que encaje al 100% en cualquier pantalla
+    // Escalado adaptativo perfecto
     function scaleInvitation() {
         if (!card || !wrapper) return;
 
-        const screenW = window.innerWidth - 30; // Margen de seguridad lateral
-        const screenH = window.innerHeight - 30; // Margen de seguridad vertical
+        // Aprovecha el ancho completo del dispositivo
+        const isMobile = window.innerWidth <= 768;
+        const marginX = isMobile ? 8 : 40;
+        const marginY = isMobile ? 20 : 40;
 
-        const scaleX = screenW / 900;
-        const scaleY = screenH / 636;
+        const availableW = window.innerWidth - marginX;
+        const availableH = window.innerHeight - marginY;
+
+        const scaleX = availableW / 900;
+        const scaleY = availableH / 636;
         
-        // Toma la escala necesaria para que quepa completa sin salirse
         const scale = Math.min(scaleX, scaleY, 1);
 
         card.style.transform = `scale(${scale})`;
