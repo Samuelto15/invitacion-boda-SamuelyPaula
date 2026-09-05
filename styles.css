@@ -414,7 +414,7 @@ body {
 /* ========================================================================= */
 /* ================= RESPONSIVE: ADAPTACIÓN PARA MÓVILES ================= */
 /* ========================================================================= */
-@media (max-width: 900px) {
+@media (max-width: 700px) {
     /* Quitamos el alto y ancho fijos para que fluya hacia abajo */
     .invitation-card {
         aspect-ratio: auto;
