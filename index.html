@@ -1,128 +1,582 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boda Samuel y Paula</title>
-<link rel="stylesheet" href="styles.css?v=2">
-</head>
-<body>
+/* ================= FUENTES WEBFONT (.WOFF2 / .WOFF) ================= */
+@font-face {
+    font-family: 'Aerotis';
+    src: url('fonts/aerotis-webfont.woff2') format('woff2'),
+         url('fonts/aerotis-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-    <main class="invitation-wrapper">
-        <div class="invitation-card" id="invitationCard">
+@font-face {
+    font-family: 'Delicate Caligraphy';
+    src: url('fonts/DelicateCaligraphy-Demo.woff2') format('woff2'),
+         url('fonts/DelicateCaligraphy-Demo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-            <!-- ================= CUBIERTA (PUERTAS) ================= -->
-            <div class="gatefold-doors" id="gatefoldDoors">
-                <div class="door door-left">
-                    <h2 class="cover-script">Samuel</h2>
-                    <div class="split-bg"></div>
-                </div>
-                <div class="door door-right">
-                    <h2 class="cover-script">Paula</h2>
-                    <div class="split-bg"></div>
-                </div>
-            </div>
+@font-face {
+    font-family: 'Delicate Elegance';
+    src: url('fonts/DelicateElegance-Regular.woff2') format('woff2'),
+         url('fonts/DelicateElegance-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-            <!-- ================= INTERIOR ================= -->
-            <div class="inside-content">
+/* ================= RESET BÁSICO ================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-                <!-- PANEL IZQUIERDO -->
-                <section class="panel panel-left">
-                    <div class="texto-bonito-box">
-                        <p>Juro solemnemente que<br>nuestras intenciones no<br>son buenas.<br>¡Nos casamos!<br>Prepara tus mejores<br>galas y tus ganas de<br>fiesta porque la magia<br>empieza pronto.</p>
-                        <p class="travesura">Travesura realizada.</p>
-                    </div>
+body {
+    background-color: #f7f5f2;
+    font-family: 'Delicate Elegance', serif;
+    color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
 
-                    <div class="confirmacion-box">
-                        <h2 class="section-title">CONFIRMACIÓN</h2>
-                        <p>Confírmanos tu asistencia<br>en el siguiente enlace:</p>
+.invitation-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
 
-                        <!-- ESTE ES EL NUEVO ENLACE DE TEXTO -->
-                        <div class="link-container">
-                            <a href="https://forms.google.com" target="_blank">CONFIRMAR ASISTENCIA</a>
-                        </div>
-                    </div>
+.invitation-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 297 / 210;
+    perspective: 2500px;
+    background: transparent;
+}
 
-                    <!-- NUEVA SECCIÓN IBAN -->
-                    <div class="iban-box">
-                        <p>Si quieres contribuir al viaje de<br>luna de miel te dejamos el IBAN:</p>
-                        <p class="iban-number">ESXX XXXX XXXX XXXX XXXX</p>
-                    </div>
-                </section>
+/* ================= CUBIERTA / PUERTAS ================= */
+.gatefold-doors {
+    position: absolute;
+    top: 0;
+    left: 25%;  
+    width: 50%;
+    height: 100%;
+    z-index: 20;
+    cursor: pointer;
+    display: flex;
+    background: transparent;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
 
-                <!-- PANEL CENTRAL -->
-                <section class="panel panel-center">
-                    <div class="main-illustration-box">
-                        <img src="assets/iglesia.png" alt="Acuarela Masia" class="center-img">
-                    </div>
-                    <!-- ESTO ESTÁ INTACTO COMO TÚ LO PASASTE -->
-                    <h1 class="couple-names-formal">
-                        SAMUEL SERRA<br>
-                        <span class="ampersand">&</span><br>
-                        PAULA PÉREZ
-                    </h1>
-                    <p class="invite-text">
-                        Estás invitado a acompañarnos en<br>el día más importante de nuestras vidas
-                    </p>
-                    <p class="wedding-details">
-                        15 DE MAYO DE 2027<br>
-                        A LAS 17:30H<br>
-                        <!-- ENLACE A GOOGLE MAPS -->
-                        <a href="https://www.google.com/maps/search/?api=1&query=Masia+La+Tartana+Matadepera" target="_blank">MASIA LA TARTANA. MATADEPERA</a>
-                    </p>
-                </section>
+.door {
+    width: 50%;
+    height: 100%;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+    transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.6s ease 0.6s;
+}
 
-                <!-- PANEL DERECHO -->
-                <section class="panel panel-right">
-                    <h2 class="timeline-title">TIMELINE</h2>
-                    <div class="timeline-container">
-                        <div class="timeline-line"></div>
+.door-left { transform-origin: left center; border-right: 1px solid rgba(0, 0, 0, 0.04); }
+.door-right { transform-origin: right center; border-left: 1px solid rgba(0, 0, 0, 0.04); }
 
-                        <div class="tl-row">
-                            <div class="tl-icon-box"><img src="assets/llegada.png" alt="Llegada" class="tl-icon"></div>
-                            <div class="tl-dash"></div>
-                            <div class="tl-text">
-                                <span class="tl-time">17:30h</span><br>Llegada
-                            </div>
-                        </div>
-                        
-                        <div class="tl-row">
-                            <div class="tl-icon-box"><img src="assets/ceremonia.png" alt="Ceremonia" class="tl-icon"></div>
-                            <div class="tl-dash"></div>
-                            <div class="tl-text">
-                                <span class="tl-time">18:00h</span><br>Ceremonia
-                            </div>
-                        </div>
-                        
-                        <div class="tl-row">
-                            <div class="tl-icon-box"><img src="assets/aperitivo.png" alt="Aperitivo" class="tl-icon"></div>
-                            <div class="tl-dash"></div>
-                            <div class="tl-text">
-                                <span class="tl-time">19:30h</span><br>Aperitivo
-                            </div>
-                        </div>
-                        
-                        <div class="tl-row">
-                            <div class="tl-icon-box"><img src="assets/banquete.png" alt="Banquete" class="tl-icon"></div>
-                            <div class="tl-dash"></div>
-                            <div class="tl-text">
-                                <span class="tl-time">21:00h</span><br>Banquete
-                            </div>
-                        </div>
-                        
-                        <div class="tl-row">
-                            <div class="tl-icon-box"><img src="assets/fiesta.png" alt="Fiesta" class="tl-icon"></div>
-                            <div class="tl-dash"></div>
-                            <div class="tl-text">
-                                <span class="tl-time">23:00h</span><br>Fiesta!!
-                            </div>
-                        </div>
-                    </section>
+.cover-script {
+    position: absolute;
+    top: 175px;
+    width: 100%;
+    font-family: 'Aerotis', cursive;
+    font-size: 2.65rem;
+    color: #1a1a1a;
+    font-weight: normal;
+    margin: 0;
+    z-index: 2;
+}
 
-            </div>
-        </div>
-    </main>
+.door-left .cover-script { text-align: right; padding-right: 15px; }
+.door-right .cover-script { text-align: left; padding-left: 15px; }
 
-    <script src="script.js"></script>
-</body>
-</html>
+.split-bg {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 100%;
+    background-image: url('assets/iglesia.png');
+    background-size: 100% auto;
+    background-position: center 85%;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.door-left .split-bg { left: 0; }
+.door-right .split-bg { left: -100%; }
+
+/* ================= ANIMACIÓN ================= */
+.invitation-card.open .gatefold-doors { pointer-events: none; box-shadow: none; }
+.invitation-card.open .door-left { transform: rotateY(-140deg); opacity: 0; }
+.invitation-card.open .door-right { transform: rotateY(140deg); opacity: 0; }
+
+/* ================= CONTENIDO INTERIOR (PC) ================= */
+.inside-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: #ffffff;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+    z-index: 10;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.invitation-card.open .inside-content { opacity: 1; transform: scale(1); pointer-events: auto; }
+
+/* ================= PANEL IZQUIERDO ================= */
+.panel-left {
+    width: 25%;
+    padding: 70px 15px 25px 15px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.texto-bonito-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Delicate Elegance', serif;
+    font-weight: normal; 
+    font-size: 0.95rem;
+    color: #000000;
+    margin-bottom: 25px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.texto-bonito-box .travesura {
+    font-style: italic;
+    margin-top: 15px;
+}
+
+.confirmacion-box { 
+    text-align: center; 
+    width: 100%; 
+    margin-top: 30px; 
+}
+
+.confirmacion-box p { 
+    font-size: 0.95rem; 
+    margin-bottom: 15px; 
+    line-height: 1.4; 
+    font-weight: normal; 
+}
+
+.link-container {
+    margin-top: 40px; 
+}
+
+.link-container a {
+    font-family: 'Delicate Elegance', serif; 
+    font-size: 1.1rem;
+    color: #1a1a1a; 
+    text-decoration: none; 
+    border-bottom: 1px solid #1a1a1a; 
+    padding-bottom: 4px; 
+    letter-spacing: 1.5px; 
+    transition: opacity 0.3s ease; 
+}
+
+.link-container a:hover {
+    opacity: 0.5; 
+}
+
+.iban-box {
+    margin-top: 25px;
+    text-align: center;
+    width: 100%;
+}
+.iban-box p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    font-weight: normal;
+}
+.iban-box .iban-number {
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+}
+
+/* ================= PANEL CENTRAL ================= */
+.panel-center {
+    width: 50%;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px dashed #e6e0d8;
+    border-right: 1px dashed #e6e0d8;
+    position: relative;
+    z-index: 5;
+}
+
+.main-illustration-box {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px; 
+    display: flex;
+    justify-content: center;
+    position: relative; 
+    top: 25px; 
+}
+
+.center-img {
+    max-width: 100%;
+    height: 300px; 
+    max-height: 400px; 
+    object-fit: contain;
+}
+
+.section-title {
+    font-family: 'Delicate Caligraphy', cursive;
+    font-weight: normal;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.couple-names-formal {
+    font-family: 'Delicate Caligraphy', cursive;
+    font-size: 1.75rem;
+    font-weight: normal;
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #1a1a1a;
+}
+
+.ampersand {
+    font-family: 'Delicate Caligraphy', cursive;
+    font-size: 1.3rem;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased; 
+    text-shadow: none;        
+    display: inline-block;
+    margin: -5px 0;
+    color: #1a1a1a;
+}
+
+.invite-text {
+    font-family: 'Delicate Elegance';
+    font-size: 1.1rem;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 45px;
+    color: #1a1a1a;
+    text-align: center;
+}
+
+.wedding-details {
+    font-family: 'Delicate Elegance';
+    font-size: 1.20rem;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 75px;
+}
+
+.wedding-details a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ================= PANEL DERECHO (TIMELINE) ================= */
+.panel-right {
+    width: 25%;
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.timeline-title {
+    font-family: 'Delicate Caligraphy', cursive;
+    font-size: 2rem; 
+    font-weight: normal;
+    letter-spacing: 3px; 
+    margin-top: 40px; 
+    margin-bottom: 10px;
+    text-align: center;
+    color: #1a1a1a;
+}
+
+.timeline-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    gap: 30px; 
+    flex-grow: 1;
+    padding: 30px 0; 
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    bottom: 20px;
+    width: 1px;
+    background-color: #1a1a1a;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.timeline-line::before,
+.timeline-line::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background-color: #1a1a1a;
+    border-radius: 50%;
+    transform: translateX(-50%);
+}
+.timeline-line::before { top: 0; }
+.timeline-line::after { bottom: 0; }
+
+.tl-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.tl-icon-box {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 15px; 
+}
+
+.tl-icon {
+    width: 60px;
+    height: auto;
+}
+
+.tl-dash {
+    width: 25px;
+    height: 1px;
+    background-color: #1a1a1a;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.tl-text {
+    font-family: 'Delicate Elegance', serif;
+    font-size: 0.95rem; 
+    font-weight: normal;
+    line-height: 1.2; 
+    letter-spacing: 1px;
+    flex: 1;
+    text-align: center; 
+    padding-left: 10px; 
+    color: #1a1a1a;
+}
+
+.tl-time {
+    font-size: 1.25rem; 
+}
+
+/* Indicadores de página en móvil (ocultos en PC) */
+.mobile-dots {
+    display: none;
+}
+
+/* ========================================================================= */
+/* ================= RESPONSIVE MÓVIL: TARJETÓN REAL SIN SCROLL ============ */
+/* ========================================================================= */
+@media (max-width: 700px) {
+    body {
+        padding: 10px;
+    }
+
+    .invitation-wrapper {
+        max-width: 380px;
+        width: 100%;
+    }
+
+    /* Tarjeta fija en móvil igual que la portada */
+    .invitation-card {
+        aspect-ratio: unset;
+        height: 540px;
+        perspective: 2000px;
+    }
+
+    /* Portada exactamente como te gusta */
+    .gatefold-doors {
+        left: 0;
+        width: 100%;
+        height: 540px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+    }
+
+    .door {
+        border-radius: 4px;
+    }
+
+    .cover-script {
+        top: 130px;
+        font-size: 2.1rem;
+    }
+
+    .door-left .cover-script { padding-right: 10px; }
+    .door-right .cover-script { padding-left: 10px; }
+
+    .split-bg {
+        background-size: 100% auto;
+        background-position: center 88%;
+    }
+
+    /* INTERIOR: Modo deslizante horizontal (Carrusel de 3 caras) */
+    .inside-content {
+        height: 540px;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: row; /* Horizontal, no vertical */
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .inside-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Cada cara del tríptico ocupa la pantalla completa de la tarjeta */
+    .panel-left,
+    .panel-center,
+    .panel-right {
+        min-width: 100%;
+        width: 100%;
+        height: 100%;
+        scroll-snap-align: start;
+        flex-shrink: 0;
+        padding: 25px 20px 45px 20px;
+        border: none;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Ajustes compactos del interior para los 540px */
+    .center-img {
+        height: 160px;
+        max-height: 180px;
+    }
+
+    .main-illustration-box {
+        top: 0;
+        margin-bottom: 5px;
+    }
+
+    .couple-names-formal {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+        letter-spacing: 2px;
+    }
+
+    .invite-text {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+
+    .wedding-details {
+        font-size: 1.05rem;
+        margin-bottom: 10px;
+    }
+
+    .timeline-title {
+        font-size: 1.6rem;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .timeline-container {
+        gap: 15px;
+        padding: 10px 0;
+    }
+
+    .tl-icon {
+        width: 44px;
+    }
+
+    .tl-text {
+        font-size: 0.85rem;
+        padding-left: 8px;
+    }
+
+    .tl-time {
+        font-size: 1.1rem;
+    }
+
+    .confirmacion-box {
+        margin-top: 20px;
+    }
+
+    .link-container {
+        margin-top: 20px;
+    }
+
+    /* Puntitos indicadores para deslizar en el móvil */
+    .mobile-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        position: absolute;
+        bottom: 12px;
+        left: 0;
+        width: 100%;
+        z-index: 15;
+    }
+
+    .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #d1cbc1;
+        transition: all 0.3s ease;
+    }
+
+    .dot.active {
+        background: #1a1a1a;
+        width: 18px;
+        border-radius: 4px;
+    }
+}
