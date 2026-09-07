@@ -4,9 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Boda Samuel y Paula</title>
-    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
+
+    <!-- OVERLAY ANIMADO: GIRA TU TELÉFONO (MÓVILES) -->
+    <div class="rotate-screen-overlay" id="rotateScreenOverlay">
+        <div class="rotate-screen-content">
+            <div class="rotate-anim-box">
+                <!-- Flecha curva -->
+                <svg class="curved-arrow" viewBox="0 0 50 50">
+                    <path d="M 40 10 A 25 25 0 0 0 12 30" fill="none" stroke="#d4af37" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4" />
+                    <polygon points="6,26 12,38 18,26" fill="#d4af37" />
+                </svg>
+                <!-- Teléfono que gira -->
+                <div class="phone-icon-anim">
+                    <div class="phone-speaker"></div>
+                    <div class="phone-screen-inner"></div>
+                    <div class="phone-home-btn"></div>
+                </div>
+            </div>
+            <h2 class="rotate-main-text">GIRA TU TELÉFONO</h2>
+            <p class="rotate-sub-text">Para disfrutar de la invitación en grande</p>
+        </div>
+    </div>
 
     <main class="invitation-wrapper">
         <div class="invitation-card" id="invitationCard">
@@ -36,12 +57,12 @@
                     <div class="confirmacion-box">
                         <h2 class="section-title">CONFIRMACIÓN</h2>
                         <p>Confírmanos tu asistencia<br>en el siguiente enlace:</p>
-                        <div class="link-container">
+                        <div class="link-container" style="margin-top: 8px !important;">
                             <a href="https://forms.google.com" target="_blank">CONFIRMAR ASISTENCIA</a>
                         </div>
                     </div>
 
-                    <div class="iban-box">
+                    <div class="iban-box" style="margin-top: 55px !important;">
                         <p>Si quieres contribuir al viaje de<br>luna de miel te dejamos el IBAN:</p>
                         <p class="iban-number">ESXX XXXX XXXX XXXX XXXX</p>
                     </div>
@@ -119,15 +140,38 @@
         </div>
     </main>
 
-    <!-- AVISO ELEGANTE PARA GIRAR EL MÓVIL -->
-    <aside class="rotate-hint" id="rotateHint" aria-label="Aviso de orientación">
-        <svg class="rotate-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
-            <path d="M12 18h.01"></path>
-        </svg>
-        <span>Gira el móvil para verla en grande</span>
-    </aside>
+    <!-- BOTÓN DISCRETO CENTRADO DEBAJO -->
+    <button class="info-btn" id="openInfoBtn" type="button">
+        <span>+</span> MÁS INFORMACIÓN
+    </button>
 
-    <script src="script.js?v=8"></script>
+    <!-- VENTANA EMERGENTE (TARJETÓN ANEXO) -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card">
+            <button class="modal-close" id="closeInfoBtn" aria-label="Cerrar">✕</button>
+            <h3 class="modal-title">INFORMACIÓN DE INTERÉS</h3>
+            <div class="modal-divider"></div>
+
+            <div class="modal-content">
+                <div class="info-item">
+                    <span class="info-icon">🚗</span>
+                    <div class="info-text">
+                        <h4>Aparcamiento</h4>
+                        <p>La masía cuenta con parking privado y gratuito para todos los invitados.</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">✨</span>
+                    <div class="info-text">
+                        <h4>Dress code</h4>
+                        <p>Tus mejores galas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=11"></script>
 </body>
 </html>
