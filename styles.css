@@ -36,12 +36,143 @@ body {
     color: #1a1a1a;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 10px;
     overflow-x: hidden;
 }
 
+/* ================= OVERLAY ANIMADO: GIRA TU TELÉFONO ================= */
+.rotate-screen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(18, 18, 18, 0.92);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+    cursor: pointer;
+}
+
+/* Oculto en ordenadores y en pantallas que ya estén en horizontal */
+@media (min-width: 769px), (orientation: landscape) {
+    .rotate-screen-overlay {
+        display: none !important;
+    }
+}
+
+.rotate-screen-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.rotate-screen-content {
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.rotate-anim-box {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.curved-arrow {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 60px;
+    height: 60px;
+    z-index: 2;
+    animation: pulseArrow 2.2s infinite ease-in-out;
+}
+
+@keyframes pulseArrow {
+    0%, 100% { opacity: 0.35; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+.phone-icon-anim {
+    width: 50px;
+    height: 90px;
+    border: 3.5px solid #ffffff;
+    border-radius: 9px;
+    position: relative;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    animation: rotatePhoneAnim 2.2s infinite ease-in-out;
+}
+
+.phone-speaker {
+    width: 12px;
+    height: 2.5px;
+    background-color: #ffffff;
+    border-radius: 2px;
+}
+
+.phone-screen-inner {
+    width: 82%;
+    height: 62px;
+    border: 1px dashed rgba(255, 255, 255, 0.35);
+    border-radius: 3px;
+}
+
+.phone-home-btn {
+    width: 9px;
+    height: 9px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+}
+
+@keyframes rotatePhoneAnim {
+    0%, 15% {
+        transform: rotate(0deg);
+    }
+    55%, 85% {
+        transform: rotate(-90deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.rotate-main-text {
+    font-family: 'Delicate Elegance', serif;
+    font-size: 1.15rem;
+    letter-spacing: 3.5px;
+    font-weight: normal;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.rotate-sub-text {
+    font-family: 'Delicate Elegance', serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: #c7c0b5;
+    font-style: italic;
+}
+
+/* ================= TARJETA / TRÍPTICO ================= */
 .invitation-wrapper {
     position: relative;
     display: flex;
@@ -178,13 +309,9 @@ body {
 
 .confirmacion-box p { 
     font-size: 0.95rem; 
-    margin-bottom: 15px; 
+    margin-bottom: 8px; 
     line-height: 1.4; 
     font-weight: normal; 
-}
-
-.link-container {
-    margin-top: 40px; 
 }
 
 .link-container a {
@@ -203,7 +330,6 @@ body {
 }
 
 .iban-box {
-    margin-top: 25px;
     text-align: center;
     width: 100%;
 }
@@ -411,41 +537,156 @@ body {
     font-size: 1.25rem; 
 }
 
-/* ================= AVISO PARA GIRAR EL MÓVIL ================= */
-.rotate-hint {
-    position: fixed;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(26, 26, 26, 0.85);
-    color: #ffffff;
-    padding: 10px 18px;
-    border-radius: 25px;
+/* ================= BOTÓN DISCRETO "MÁS INFORMACIÓN" ================= */
+.info-btn {
+    margin-top: 14px;
+    background: #fbf9f5;
+    color: #555b4a;
+    border: 1px solid #dcd5c7;
+    padding: 7px 16px;
+    border-radius: 20px;
     font-family: 'Delicate Elegance', serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-    display: flex;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    z-index: 100;
-    pointer-events: none;
+    gap: 6px;
+    z-index: 30;
+}
+
+.info-btn span {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #606c38;
+}
+
+.info-btn:hover {
+    background: #606c38;
+    color: #ffffff;
+    border-color: #606c38;
+}
+
+.info-btn:hover span {
+    color: #ffffff;
+}
+
+/* ================= MODAL / TARJETÓN ANEXO ================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(40, 42, 35, 0.45);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
-/* Solo se muestra en móviles verticales y tras abrir la tarjeta */
-@media (max-width: 768px) and (orientation: portrait) {
-    .invitation-card.open ~ .rotate-hint {
-        opacity: 1;
-    }
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
-@keyframes rotatePhone {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(90deg); }
+.modal-card {
+    background: #fdfbf7;
+    border: 1px solid #e5dec9;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 360px;
+    padding: 26px 22px 22px 22px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    position: relative;
+    transform: translateY(12px) scale(0.97);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    text-align: center;
 }
 
-.rotate-icon {
-    animation: rotatePhone 2.5s infinite ease-in-out;
+.modal-overlay.active .modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+    color: #7b8070;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+    color: #1a1a1a;
+}
+
+.modal-title {
+    font-family: 'Delicate Caligraphy', cursive;
+    font-size: 1.35rem;
+    font-weight: normal;
+    letter-spacing: 2px;
+    color: #2b2e24;
+    margin-bottom: 4px;
+}
+
+.modal-divider {
+    width: 45px;
+    height: 1px;
+    background-color: #8f967d;
+    margin: 8px auto 18px auto;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed #e8e2d2;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.info-icon {
+    font-size: 1.25rem;
+    line-height: 1.2;
+}
+
+.info-text h4 {
+    font-family: 'Delicate Caligraphy', cursive;
+    font-size: 1.05rem;
+    font-weight: normal;
+    letter-spacing: 1px;
+    color: #2b2e24;
+    margin-bottom: 2px;
+}
+
+.info-text p {
+    font-family: 'Delicate Elegance', serif;
+    font-size: 0.9rem;
+    color: #4a4d42;
+    line-height: 1.35;
 }
