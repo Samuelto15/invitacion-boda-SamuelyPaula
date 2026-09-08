@@ -39,7 +39,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 4px;
     overflow-x: hidden;
 }
 
@@ -552,14 +552,14 @@ body {
 
 /* ================= BOTÓN DISCRETO "MÁS INFORMACIÓN" ================= */
 .info-btn {
-    margin-top: 14px;
+    margin-top: 8px;
     background: #fbf9f5;
     color: #555b4a;
     border: 1px solid #dcd5c7;
-    padding: 7px 16px;
+    padding: 6px 16px;
     border-radius: 20px;
     font-family: 'Delicate Elegance', serif;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     letter-spacing: 1.5px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -584,6 +584,15 @@ body {
 
 .info-btn:hover span {
     color: #ffffff;
+}
+
+/* Ajuste compacto del botón en móvil horizontal para apurar el 100% de la altura */
+@media (orientation: landscape) and (max-height: 550px) {
+    .info-btn {
+        margin-top: 4px;
+        padding: 4px 12px;
+        font-size: 0.72rem;
+    }
 }
 
 /* ================= MODAL / TARJETÓN ANEXO ================= */
