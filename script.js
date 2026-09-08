@@ -7,18 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const rotateOverlay = document.getElementById('rotateScreenOverlay');
 
     if (rotateOverlay) {
-        // Se desvanece solo a los 3,5 segundos
         const timer = setTimeout(() => {
             rotateOverlay.classList.add('fade-out');
         }, 3500);
 
-        // O se quita al instante si el usuario toca la pantalla
         rotateOverlay.addEventListener('click', () => {
             clearTimeout(timer);
             rotateOverlay.classList.add('fade-out');
         });
 
-        // O se quita si el usuario gira el teléfono antes de los 3,5s
         window.addEventListener('orientationchange', () => {
             clearTimeout(timer);
             rotateOverlay.classList.add('fade-out');
@@ -48,9 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (overlay) {
         overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                closeModal();
-            }
+            if (e.target === overlay) closeModal();
         });
     }
 
@@ -58,21 +53,42 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape') closeModal();
     });
 
-    // ================= ESCALADO ADAPTATIVO =================
+    // ================= ESCALADO MAXIMIZADO PARA PC Y MÓVIL =================
     function scaleInvitation() {
         if (!card || !wrapper) return;
 
-        const isMobile = window.innerWidth <= 768;
-        const marginX = isMobile ? 8 : 40;
-        const marginY = isMobile ? 80 : 90;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const isLandscapeMobile = h < 550 && w > h;
+        const isPortraitMobile = w <= 768 && h >= w;
 
-        const availableW = window.innerWidth - marginX;
-        const availableH = window.innerHeight - marginY;
+        let marginX, marginY, maxScale;
+
+        if (isLandscapeMobile) {
+            // Móvil en horizontal: márgenes mínimos para apurar toda la pantalla
+            marginX = 16;
+            marginY = 42; 
+            maxScale = 1.0; 
+        } else if (isPortraitMobile) {
+            // Móvil en vertical
+            marginX = 8;
+            marginY = 70;
+            maxScale = 1.0;
+        } else {
+            // Ordenador / Portátil: se permite crecer hasta 1.35x para llenar la pantalla
+            marginX = 40;
+            marginY = 70;
+            maxScale = 1.35;
+        }
+
+        const availableW = w - marginX;
+        const availableH = h - marginY;
 
         const scaleX = availableW / 900;
         const scaleY = availableH / 636;
         
-        const scale = Math.min(scaleX, scaleY, 1);
+        // Toma la escala máxima posible sin recortar ningún borde
+        const scale = Math.min(scaleX, scaleY, maxScale);
 
         card.style.transform = `scale(${scale})`;
         wrapper.style.width = `${900 * scale}px`;
