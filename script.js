@@ -3,55 +3,80 @@ document.addEventListener('DOMContentLoaded', () => {
     const doors = document.getElementById('gatefoldDoors');
     const wrapper = document.querySelector('.invitation-wrapper');
 
-    // Overlay aviso rotación
+    // ================= CONTROL DEL OVERLAY DE ROTACIÓN =================
     const rotateOverlay = document.getElementById('rotateScreenOverlay');
+
     if (rotateOverlay) {
-        const timer = setTimeout(() => rotateOverlay.classList.add('fade-out'), 3500);
+        const timer = setTimeout(() => {
+            rotateOverlay.classList.add('fade-out');
+        }, 3500);
+
         rotateOverlay.addEventListener('click', () => {
             clearTimeout(timer);
             rotateOverlay.classList.add('fade-out');
         });
+
         window.addEventListener('orientationchange', () => {
             clearTimeout(timer);
             rotateOverlay.classList.add('fade-out');
         });
     }
 
-    // Apertura suave de la portada
-    doors.addEventListener('click', () => card.classList.add('open'));
+    // ================= APERTURA DE LA TARJETA =================
+    doors.addEventListener('click', () => {
+        card.classList.add('open');
+    });
 
-    // Modal de más información
+    // ================= MODAL INFORMACIÓN EXTRA =================
     const openBtn = document.getElementById('openInfoBtn');
     const closeBtn = document.getElementById('closeInfoBtn');
     const overlay = document.getElementById('modalOverlay');
 
-    if (openBtn) openBtn.addEventListener('click', () => overlay && overlay.classList.add('active'));
-    if (closeBtn) closeBtn.addEventListener('click', () => overlay && overlay.classList.remove('active'));
+    function openModal() {
+        if (overlay) overlay.classList.add('active');
+    }
+
+    function closeModal() {
+        if (overlay) overlay.classList.remove('active');
+    }
+
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
     if (overlay) {
         overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) overlay.classList.remove('active');
+            if (e.target === overlay) {
+                closeModal();
+            }
         });
     }
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay) overlay.classList.remove('active');
+        if (e.key === 'Escape') closeModal();
     });
 
-    // Escalado para PC sin deformar el móvil
-    function scaleDesktop() {
+    // ================= ESCALADO ADAPTATIVO =================
+    function scaleInvitation() {
         if (!card || !wrapper) return;
-        if (window.innerWidth > 768 && window.innerHeight > 550) {
-            const scale = Math.min((window.innerWidth - 60) / 900, (window.innerHeight - 80) / 636, 1.25);
-            card.style.transform = `scale(${scale})`;
-            wrapper.style.width = `${900 * scale}px`;
-            wrapper.style.height = `${636 * scale}px`;
-        } else {
-            card.style.transform = 'none';
-            wrapper.style.width = '';
-            wrapper.style.height = '';
-        }
+
+        const isMobile = window.innerWidth <= 768;
+        const marginX = isMobile ? 8 : 40;
+        const marginY = isMobile ? 80 : 90;
+
+        const availableW = window.innerWidth - marginX;
+        const availableH = window.innerHeight - marginY;
+
+        const scaleX = availableW / 900;
+        const scaleY = availableH / 636;
+        
+        const scale = Math.min(scaleX, scaleY, 1);
+
+        card.style.transform = `scale(${scale})`;
+        wrapper.style.width = `${900 * scale}px`;
+        wrapper.style.height = `${636 * scale}px`;
     }
 
-    window.addEventListener('resize', scaleDesktop);
-    scaleDesktop();
+    window.addEventListener('resize', scaleInvitation);
+    window.addEventListener('orientationchange', scaleInvitation);
+    scaleInvitation();
 });
