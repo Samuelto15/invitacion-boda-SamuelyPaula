@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const doors = document.getElementById('gatefoldDoors');
     const wrapper = document.querySelector('.invitation-wrapper');
 
-    // Overlay de aviso para girar
+    // Overlay aviso rotación
     const rotateOverlay = document.getElementById('rotateScreenOverlay');
     if (rotateOverlay) {
         const timer = setTimeout(() => rotateOverlay.classList.add('fade-out'), 3500);
@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Apertura suave
+    // Apertura suave de la portada
     doors.addEventListener('click', () => card.classList.add('open'));
 
-    // Modal información extra
+    // Modal de más información
     const openBtn = document.getElementById('openInfoBtn');
     const closeBtn = document.getElementById('closeInfoBtn');
     const overlay = document.getElementById('modalOverlay');
@@ -33,7 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Escalado exclusivo para ordenadores (sin distorsionar en móvil)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay) overlay.classList.remove('active');
+    });
+
+    // Escalado para PC sin deformar el móvil
     function scaleDesktop() {
         if (!card || !wrapper) return;
         if (window.innerWidth > 768 && window.innerHeight > 550) {
